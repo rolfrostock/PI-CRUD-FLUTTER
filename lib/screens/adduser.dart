@@ -1,6 +1,7 @@
 // lib/screens/adduser.dart
 
 import 'package:untitled1/model/user.dart';
+import 'package:untitled1/screens/viewusers.dart';
 import 'package:untitled1/services/userservice.dart';
 import 'package:flutter/material.dart';
 
@@ -83,7 +84,7 @@ class _AddUserState extends State<AddUser> {
                 children: [
                   TextButton(
                       style: TextButton.styleFrom(
-                          primary: Colors.white,
+                          foregroundColor: Colors.white,  // Changed from 'primary' to 'foregroundColor'
                           backgroundColor: Colors.teal,
                           textStyle: const TextStyle(fontSize: 15)),
                       onPressed: () async {
@@ -97,27 +98,28 @@ class _AddUserState extends State<AddUser> {
                           _userDescriptionController.text.isEmpty
                               ? _validateDescription = true
                               : _validateDescription = false;
-
                         });
-                        if (_validateName == false &&
-                            _validateContact == false &&
-                            _validateDescription == false) {
-                          // print("Good Data Can Save");
+
+                        if (!_validateName && !_validateContact && !_validateDescription) {
                           var user = User();
                           user.name = _userNameController.text;
                           user.contact = _userContactController.text;
                           user.description = _userDescriptionController.text;
-                          var result=await _userService.SaveUser(user);
-                          Navigator.pop(context,result);
+
+                          var savedUser = await _userService.SaveUser(user);
+
+                          Navigator.pushReplacement( // Use pushReplacement para substituir a tela atual na pilha
+                            context,
+                            MaterialPageRoute(builder: (context) => ViewUser(user: savedUser)),
+                          );
                         }
                       },
-                      child: const Text('Salvar')),
-                  const SizedBox(
-                    width: 10.0,
+
+                      child: const Text('Salvar')
                   ),
                   TextButton(
                       style: TextButton.styleFrom(
-                          primary: Colors.white,
+                          foregroundColor: Colors.white,  // Changed from 'primary' to 'foregroundColor'
                           backgroundColor: Colors.red,
                           textStyle: const TextStyle(fontSize: 15)),
                       onPressed: () {
@@ -125,7 +127,9 @@ class _AddUserState extends State<AddUser> {
                         _userContactController.text = '';
                         _userDescriptionController.text = '';
                       },
-                      child: const Text('Limpar'))
+                      child: const Text('Limpar')
+                  )
+
                 ],
               )
             ],

@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
@@ -40,8 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    getAllUserDetails();
     super.initState();
+    getAllUserDetails();
   }
 
   void getAllUserDetails() async {
@@ -71,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: [
             TextButton(
               style: TextButton.styleFrom(
-                primary: Colors.white, // foreground
+                foregroundColor: Colors.white, // foreground
                 backgroundColor: Colors.red,
               ),
               onPressed: () async {
@@ -86,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TextButton(
               style: TextButton.styleFrom(
-                primary: Colors.white, // foreground
+                foregroundColor: Colors.white, // foreground
                 backgroundColor: Colors.teal,
               ),
               onPressed: () {

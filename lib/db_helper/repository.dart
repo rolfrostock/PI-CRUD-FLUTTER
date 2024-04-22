@@ -21,9 +21,9 @@ class Repository {
     }
   }
 
-  insertData(String table, Map<String, dynamic> data) async {
+  Future<int> insertData(String table, Map<String, dynamic> data) async {
     var connection = await database;
-    return await connection?.insert(table, data);
+    return await connection!.insert(table, data);
   }
 
   readData(String table) async {
@@ -31,9 +31,9 @@ class Repository {
     return await connection?.query(table);
   }
 
-  readDataById(String table, int itemId) async {
+  Future<List<Map<String, dynamic>>> readDataById(String table, int itemId) async {
     var connection = await database;
-    return await connection?.query(table, where: 'id=?', whereArgs: [itemId]);
+    return await connection!.query(table, where: 'id = ?', whereArgs: [itemId]);
   }
 
   updateData(String table, Map<String, dynamic> data) async {
